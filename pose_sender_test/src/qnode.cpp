@@ -67,7 +67,6 @@ void QNode::run() {
 void QNode::doneCallback(const std_msgs::String::ConstPtr &msg)
 {
     m_doneData = *msg;
-
     Q_EMIT recvDonedata();
 }
 
