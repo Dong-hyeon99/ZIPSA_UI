@@ -37,6 +37,7 @@ MainWindow::MainWindow(int argc, char** argv, QWidget *parent)
     ui.setupUi(this); // Calling this incidentally connects all ui's triggers to on_...() callbacks in this class.
 
     QObject::connect(&qnode, SIGNAL(rosShutdown()), this, SLOT(close()));
+    QObject::connect(&qnode, SIGNAL(recvDonedata), this, SLOT(sceneDone()));
     qnode.init();
 
 }
@@ -92,7 +93,6 @@ void MainWindow::on_pushButton_sendPos_clicked()
     g_client->waitForResult();
 
     cout<<"g_client->getResult(): "<<(*g_client->getResult())<<endl;
-
 }
 
 void MainWindow::on_pushButton_task_clicked()
@@ -102,7 +102,6 @@ void MainWindow::on_pushButton_task_clicked()
     qnode.m_task_pub.publish(msg);
 }
 
-
 void MainWindow::on_pushButton_intro_clicked()
 {
     std_msgs::String msg;
@@ -110,7 +109,10 @@ void MainWindow::on_pushButton_intro_clicked()
     qnode.m_intro_pub.publish(msg);
 }
 
+void MainWindow::sceneDone()
+{
+    QString data = QString::fromUtf8(qnode.m_doneData.data.c_str());
+    ui.textEdit_status->append(data);
+}
+
 }  // namespace pose_sender_test
-
-
-

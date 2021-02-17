@@ -43,6 +43,7 @@ public Q_SLOTS:
     void on_pushButton_clicked();
     void on_pushButton_task_clicked();
     void on_pushButton_intro_clicked();
+    void sceneDone();
 
 private:
 	Ui::MainWindowDesign ui;

@@ -60,16 +60,15 @@ bool QNode::init() {
 void QNode::run() {
     ros::Rate loop_rate(33);
 	while ( ros::ok() ) {
-
 	}
 	Q_EMIT rosShutdown(); // used to signal the gui for a shutdown (useful to roslaunch)
 }
 
-void QNode::done_sub(const std_msgs::String::ConstPtr &msg)
+void QNode::doneCallback(const std_msgs::String::ConstPtr &msg)
 {
-    m_doneData = msg;
-    Q_EMIT recvDonedata();
+    m_doneData = *msg;
 
+    Q_EMIT recvDonedata();
 }
 
 }  // namespace pose_sender_test
